@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+   <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+   <title>The "Win-Continue, Lose-Reverse" rule in Cournot oligopolies</title>
+
+   <META name=keywords content="Cournot, duopoly, oligopoly, Win-Continue, Lose-Reverse, collusion, simulation">
+
+   <META name=Description content="wc-lr-cournot is a model designed to analyse the Win-Continue, Lose-Reverse rule in Cournot oligopolies">
+
+   <META name=Authors content="Segismundo S. Izquierdo &amp; Luis R. Izquierdo">
+
+   <STYLE type="text/css">
+      H1 {
+         BACKGROUND-COLOR: #111199;
+         color: #ffffff;
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H2 {
+         BACKGROUND-COLOR: #66ccff;
+         font-family: arial
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      H3 {
+         BACKGROUND-COLOR: #cccccc;
+         font-family: verdana;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      p {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      table {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ul {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      ol {
+         font-family: monospace
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.parameter {
+         font-family: arial;
+         color: red;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.variable {
+         font-family: arial;
+         color: black;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.button {
+         font-family: arial;
+         color: blue;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.value {
+         font-family: arial;
+         color: #444444;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.slider {
+         font-family: arial;
+         color: green;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.monitor {
+         font-family: arial;
+         color: #B8860B;
+         font-weight: bold
+      }
+   </STYLE>
+   <STYLE type="text/css">
+      i.plot {
+         font-family: arial;
+         color: brown;
+         font-weight: bold
+      }
+   </STYLE>
+
+</head>
+
+<body>
+
+   <H1>The "Win-Continue, Lose-Reverse" rule in Cournot oligopolies</H1>
+   <h3>Segismundo S. Izquierdo &amp; Luis R. Izquierdo</h3>
+
+   <H2>HOW TO INSTALL THE MODEL</H2>
+
+   <p>To use WC-LR-Cournot, you will have to install <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo 5.3.1 (free and open source)</a> and download <a href="wc-lr-cournot.nlogo">the model itself</a>. Unzip the downloaded file and click on wc-lr-cournot.nlogo</p>
+
+   <!--
+   <p>The applet requires Java 5 or higher. You may obtain the latest Java plugin from <a href="http://www.java.com/">Oracle's Java site</a>. If you find that the application has been blocked by security settings, you have (at least) two options:
+      <ul>
+         <li> Add this website to the Exception Site List in Java, or
+            <li> Run the model offline. For this, I'm afraid that you will have to download <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo (free and open source) here</a> and <a href="wc-lr-cournot.nlogo">the model here</a>.
+      </ul>
+   </p>
+   <p> We are sorry for the inconvenience.
+   </p>
+   <hr>
+
+   <p align="center">
+      <applet code="org.nlogo.lite.Applet" archive="NetLogoLite.jar" width="1137" height="686">
+         <param name="DefaultModel" value="wc-lr-cournot.nlogo">
+         <param name="java_arguments" value="-Djnlp.packEnabled=true">
+      </applet>
+   </p>
+
+   <p>powered by
+      <a target="_blank" href="http://ccl.northwestern.edu/netlogo/">NetLogo</a></p>
+
+   <p>view/download model file:
+      <a href="wc-lr-cournot.nlogo">wc-lr-cournot.nlogo</a></p>
+  -->
+
+   <H2>OVERVIEW OF THE MODEL</H2>
+
+   <p><b>WC-LR-Cournot</b> is a model designed to analyse the <b>W</b>in-<b>C</b>ontinue, <b>L</b>ose-<b>R</b>everse rule in Cournot oligopolies. This section gives an informal and brief overview of <b>WC-LR-Cournot</b>. We use bold red italicised arial font to denote <i class="parameter">parameters</i> (i.e. variables that can be set by the user). Any parameter value can be changed at runtime, with immediate effect on the dynamics of the model.</p>
+
+   <p>In <b>WC-LR-Cournot</b>, there are <i class="parameter">num-firms</i> firms which provide a homogeneous good or service and have to choose their production level <i class="variable">q<sub>i</sub></i>. The market price <i class="variable">p</i> depends on the total amount SUM<sub><i>i</i></sub>(<i class="variable">q<sub>i</sub></i>) produced by the firms, and -in principle- it is the same for all firms. (The model can be parameterised so there can be small differences among the prices that each company receives for its products.) The process advances in discrete time steps and at every time step the companies have to simultaneously choose whether to increase or decrease their production level <i class="variable">q<sub>i</sub></i>. The decision rule considered here can be simply stated as: repeat your last action (i.e. an increase or a decrease in production) if your profits have grown; otherwise, choose the opposite action. This simple rule has been named "Win-Continue, Lose-Reverse" (WCLR) by Huck et al. (2003), who conducted a thorough study of its convergence properties in symmetric Cournot oligopolies.</p>
+
+   <H2>DESCRIPTION OF THE MODEL</H2>
+
+   <p>This section explains the formal model that <b>WC-LR-Cournot</b> implements. The information provided here should suffice to re-implement the same formal model in any sophisticated enough modelling platform.</p>
+
+   <p>The considered model is a Cournot duopoly in which at every time step <i>t</i> (<i>t</i> = 0, 1, ...) each company <i>i</i> (<i>i</i> = 1, 2, ... ,<i class="parameter">num-firms</i>) chooses a production level or quantity [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub>. In principle, the market price [<i class="variable">p</i>]<sub><i>t</i></sub> is the same for all companies and it depends on the total quantity produced by all firms, according to the following formula:</p>
+
+   <p align="center">
+      [<i class="variable">p</i>]<sub><i>t</i></sub> = <i class="parameter">p0</i> - <i class="parameter">a</i>&middot;SUM<sub><i>i</i></sub>([<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub>).
+   </p>
+
+   <p>The amount [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> is produced on period <i>t</i> with the cost function C(<i>q</i>):</p>
+
+   <p align="center">
+      C(<i>q</i>) = <i class="parameter">c0</i> + <i class="parameter">c1</i>&middot;<i>q</i> + <i class="parameter">c2</i>&middot;<i>q</i><sup>2</sup>.
+   </p>
+
+   <p>The profit for each company on period <i>t</i> is</p>
+
+   <p align="center">
+      [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> = [<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub>&middot;[<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> - C([<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub>).
+   </p>
+
+   <p>Incremental values are naturally defined as [&Delta;<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> := [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> - [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i>-1</sub>, and initial values at time step 0 are [&Delta;<i class="variable">&pi;<sub>i</sub></i>]<sub>0</sub> = 0, and [&Delta;<i class="variable">q<sub>i</sub></i>]<sub>0</sub> = 0.</p>
+
+   <p>Let us also define [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> := SIGN([&Delta;<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub>&middot;[&Delta;<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub>). Note that [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> is equal to +1 if the last changes in [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> and [<i class="variable">&pi;<sub>i</sub></i>]<sub><i>t</i></sub> took place in the same direction, and [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> is equal to -1 if such changes went in opposite directions.</p>
+
+   <p>For each company <i>i</i>, the production levels are calculated as [<i class="variable">q<sub>i</sub></i>]<sub><i>t</i>+1</sub> = MAX([<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub> + [&Delta;<i class="variable">q<sub>i</sub></i>]<sub><i>t</i>+1</sub>, 0), starting with a random initial positive production level [<i class="variable">q<sub>i</sub></i>]<sub>0</sub> at time step 0. (To be precise, [<i class="variable">q<sub>i</sub></i>]<sub>0</sub> is a random multiple of <i class="parameter">step</i> in the range [0, (<i class="parameter">p0</i> / (<i class="parameter">a</i> * <i class="parameter">num-firms</i>)].) The decision rule WCLR used to calculate the production increments [&Delta;<i class="variable">q<sub>i</sub></i>]<sub><i>t</i>+1</sub> is implemented as follows:</p>
+
+   <p><b><u>WCLR Rule</u></b>:</p>
+   <ul>
+      <li>If <i>t</i> = 0 or [<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub> = 0, then [&Delta;<i class="variable">q<sub>i</sub></i>]<sub><i>t</i>+1</sub> takes one random value out of the set {-<i class="parameter">step</i>, 0, <i class="parameter">step</i>}, where <i class="parameter">step</i> is the step size.
+         <li>Otherwise, [&Delta;<i class="variable">q<sub>i</sub></i>]<sub><i>t</i>+1</sub> = <i class="parameter">step</i>&middot;[<i class="variable">s<sub>i</sub></i>]<sub><i>t</i></sub>.
+   </ul>
+
+   <h3>Noise</h3>
+
+   <p>It is also assumed that the process includes three types of "noise":</p>
+
+   <ul>
+      <li><b><u>Decision noise</u></b>: With a small probability <i class="parameter">p-random</i> for each company in every period, the company will deviate from the value prescribed above for [&Delta;<i class="variable">q<sub>i</sub></i>]<sub><i>t</i>+1</sub> and will take a random choice among {-<i class="parameter">step</i>, 0, <i class="parameter">step</i>}. This "decision noise" can represent occasional mistakes or experimentation.</li>
+      <li><b><u>Cost noise</u></b>, characterised by the parameter <i class="parameter">cost-variability</i>, and implemented by altering each firm's base cost according to the following formula:
+
+         <p align="center">
+            [<i class="variable">c<sub>i</sub></i>]<sub><i>t</i></sub> = C([<i class="variable">q<sub>i</sub></i>]<sub><i>t</i></sub>)&middot;(1 + <i class="parameter">cost-variability</i>&middot;<i class="parameter">random-distribution</i>)
+         </p>
+
+         <p>where <i class="parameter">random-distribution</i> is a continuous uniform random variable with range [-1 , 1] if <i class="parameter">random-distribution</i> = <i class="variable">Uniform [-1, 1]</i>, or a normal distribution N[0, 1/3] with mean 0 and variance 1/3 if <i class="parameter">random-distribution</i> = <i class="variable">Normal [0, 1/3]</i>.
+         </p>
+      </li>
+
+      <li><b><u>Price noise</u></b>, characterised by the parameter <i class="parameter">price-variability</i>, and implemented by giving each firm a price [<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub> according to the following formula:
+
+         <p align="center">
+            [<i class="variable">p<sub>i</sub></i>]<sub><i>t</i></sub> = [<i class="variable">p</i>]<sub><i>t</i></sub>&middot;{1 + <i class="parameter">price-variability</i>&middot;(<i class="parameter">alpha</i>&middot;<b>COMMON</b> + (1 - <i class="parameter">alpha</i>)&middot;<b>INDIVIDUAL</b>)}
+         </p>
+
+         <p>where [<i class="variable">p</i>]<sub><i>t</i></sub> is the price that corresponds to the total level of output using the inverse demand function described above, <b>COMMON</b> is a random sample from the distribution dictated by <i class="parameter">random-distribution</i> which is shared by all firms in the market in each time-step, and <b>INDIVIDUAL</b> is a random sample from the distribution dictated by <i class="parameter">random-distribution</i> which is specific to each firm in the market in each time-step.</p>
+
+         <p>This modified model represents small differences in the price that each company gets for its products, which can be due to a number of different reasons, such as random deviations in the quality of the products of a company with respect to the average quality, different times of arrival at the market (which would allow for some variability in demand), different intermediaries with variable commissions, existence of local markets (which would allow for some variability in price), etc.</p>
+      </li>
+
+   </ul>
+
+   <h2>HOW TO USE IT</h2>
+
+   <h3>Buttons</h3>
+
+   <ul>
+      <li><i class="button">Set up</i>: Initializes the model. </li>
+      <li><i class="button">Go once</i>: Pressing this button will run the model one time-step only.
+         <li><i class="button">Go</i>: Pressing this button will run the model until this same button is pressed again. </li>
+         <li><i class="button">Reset plots</i>: Pressing this button will reset the two plots with an adequate scale. Useful when some parameters have been changed at runtime</li>
+   </ul>
+
+   <h2>PLOTS AND MONITORS</h2>
+
+   <h3>Plots</h3>
+
+   <ul>
+      <li><i class="plot">Prices</i>: Time series of the price in the market, of the collusion price and of the Cournot-Nash price.</li>
+      <li><i class="plot">Quantity 1 vs. Quantity 2</i>: Time series of the quantities produced by two of the firms in the market (always the same two), of the quantities corresponding to the collusion equilibrium, and of the quantities corresponding to the Cournot-Nash equilibrium.
+   </ul>
+
+   <h3>Monitors</h3>
+
+   <ul>
+      <li><i class="monitor">ticks</i>: Number of time-steps that have gone by.
+   </ul>
+
+   <ul>
+      <li><i class="monitor">price</i>: Price in the current time-step.
+         <li><i class="monitor">price-collusion</i>: Price corresponding to the collusion equilibrium with the current values for the parameters.
+            <li><i class="monitor">price-Cournot</i>: Price corresponding to the Cournot-Nash equilibrium with the current values for the parameters.
+   </ul>
+
+   <ul>
+      <li><i class="monitor">q-total</i>: Total quantity traded in the market in the current time-step.</li>
+      <li><i class="monitor">q-total-collusion</i>: Total quantity traded in the collusion equilibrium with the current values for the parameters.</li>
+      <li><i class="monitor">q-total-Cournot</i>: Total quantity traded in the Cournot-Nash equilibrium with the current values for the parameters.</li>
+   </ul>
+
+   <ul>
+      <li><i class="monitor">profit 1</i>: Profit of the first firm (always the same firm).</li>
+      <li><i class="monitor">profit 2</i>: Profit of the second firm (always the same firm).</li>
+   </ul>
+
+   <H2>LICENCE</H2>
+   <p>wc-lr-cournot is a model designed to analyse the "Win-Continue, Lose-Reverse" rule in Cournot oligopolies.
+      <br>Copyright (C) 2014 <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a></p>
+
+   <p>This program is free software; you can redistribute it and/or modify it under the terms of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.</p>
+   <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> for more details.</p>
+   <p>You can download a copy of the <a target="_blank" href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a> by clicking <a target="_blank" href="./gpl-3.0.txt">here</a>; you can also get a printed copy writing to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+   <p>Contact information:
+      <br>Segismundo S. Izquierdo
+      <br> University of Valladolid, Spain.
+      <br> e-mail: <a href="mailto:segis@eii.uva.es">segis@eii.uva.es</a>
+   </p>
+
+   <H2>MODELLERS</H2>
+   <p>This program has been designed and implemented by <a target="_blank" href="http://segis.izqui.org">Segismundo S. Izquierdo</a> &amp; <a target="_blank" href="http://luis.izqui.org">Luis R. Izquierdo</a>.</p>
+
+   <H2>REFERENCES</H2>
+
+   <ul>
+      <li>Huck S, Normann HT, Oechssler J (2003) Zero-knowledge cooperation in dilemma games. <i>J. Theor. Biol.</i> 220(1): 47-54</li>
+   </ul>
+
+   <hr>
+</body>
+
+</html>
